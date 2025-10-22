@@ -1,0 +1,193 @@
+
+/* HEADER */
+
+.main-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--background);
+
+}
+
+nav {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+
+    a {
+        text-decoration: none;
+        color: var(--text-secondary);
+        transition: color 0.2s;
+        font-weight: 500;
+
+        &:hover,
+        &:focus {
+            color: var(--primary);
+            outline: none;
+        }
+    }
+}
+
+.main-header>div {
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.header-right {
+    display: flex;
+    gap: 1em;
+}
+
+/* HERO SECTION */
+
+/* Hero */
+.hero-section {
+    height: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    h1 {
+        padding-top: 36px;
+    }
+
+    &>img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        left: 0;
+        right: 0;
+        mask-image: linear-gradient(to bottom, rgba(16, 25, 34, 1) 5%, rgba(16, 25, 34, 0) 80%);
+    }
+}
+
+
+/* Formulario de Búsqueda */
+.busqueda {
+    max-width: 42rem;
+    width: 100%;
+    margin: 0 auto;
+    padding-inline: 1rem;
+}
+
+.busqueda span {
+    padding-left: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.busqueda input[type="text"] {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    padding: 0.75rem 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.busqueda input[type="text"]::placeholder {
+    color: #64748b;
+}
+
+.busqueda button[type="submit"] {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--primary);
+    color: white;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: inherit;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.busqueda button[type="submit"]:hover,
+.busqueda button[type="submit"]:focus {
+    background-color: var(--primary-hover);
+}
+
+.busqueda {
+    background-color: rgb(30 41 59);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 16px;
+}
+
+.busqueda div {
+    display: flex;
+    align-items: center;
+}
+
+.busqueda>div>svg {
+    margin: 0 8px;
+}
+
+/* Features Section */
+.motivos {
+    padding-inline: 1rem;
+
+    &>header {
+        gap: 2px;
+        padding: 1rem 1rem 4rem;
+
+        p {
+            opacity: .75;
+            text-align: center;
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+    }
+
+    footer{
+        text-align: center;
+    }
+}
+
+
+/* Grid de Features */
+main>section:nth-child(2) footer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px
+}
+
+article {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    margin-bottom: 16px;
+    border-radius: 0.5rem;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.5);
+
+    svg {
+        color: var(--primary-light);
+        background: rgba(0, 153, 255, .3);
+        width: 64px;
+        height: 64px;
+        border-radius: 100%;
+        padding: 16px;
+    }
+
+    p {
+        color: var(--text-muted);
+    }
+
+    h3 {
+        font-weight: 500;
+    }
+}

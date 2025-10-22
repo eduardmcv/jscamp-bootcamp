@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encuentra las mejores ofertas de trabajo para desarrolladores en DevJobs.">
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="main.css">
+    <title>DevJobs - Inicio</title>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="page-width">
+            <span class="site-logo">DevJobs</span>
+            <nav>
+                <a href="">Inicio</a>
+                <a href="">Empleos</a>
+                <a href="">Empresas</a>
+                <a href="">Salarios</a>
+            </nav>
+
+            <div class="header-right">
+                <a class="sec-button" href="">Subir CV</a>
+                <a class="profile" href=""></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section page-width">
+
+            <h1>Encuentra tu próximo trabajo</h1>
+
+            <p>Explora miles de oportunidades en el sector tecnológico</p>
+
+            <form class="busqueda" role="search">
+                <div class="barra-de-busqueda">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
+                    <input type="text" placeholder="Buscar empleos por título, habilidad o empresa">
+                </div>
+                <div class="filters">
+                    <label class="pill">
+                        <span class="pill-text">Tecnología</span>
+                        <select name="tecnologia" aria-label="Tecnología">
+                            <option value="">Todas</option>
+                            <option>JavaScript</option>
+                            <option>TypeScript</option>
+                            <option>React</option>
+                            <option>WordPress</option>
+                        </select>
+                        <span class="chev" aria-hidden="true">▾</span>
+                    </label>
+
+                    <label class="pill">
+                        <span class="pill-text">Ubicación</span>
+                        <select name="ubicacion" aria-label="Ubicación">
+                            <option value="">Cualquiera</option>
+                            <option>Remoto</option>
+                            <option>Zaragoza</option>
+                            <option>Madrid</option>
+                            <option>Barcelona</option>
+                        </select>
+                        <span class="chev" aria-hidden="true">▾</span>
+                    </label>
+
+                    <label class="pill">
+                        <span class="pill-text">Tipo de contrato</span>
+                        <select name="contrato" aria-label="Tipo de contrato">
+                            <option value="">Todos</option>
+                            <option>Indefinido</option>
+                            <option>Temporal</option>
+                            <option>Freelance</option>
+                            <option>Prácticas</option>
+                        </select>
+                        <span class="chev" aria-hidden="true">▾</span>
+                    </label>
+
+                    <label class="pill">
+                        <span class="pill-text">Nivel de experiencia</span>
+                        <select name="nivel" aria-label="Nivel de experiencia">
+                            <option value="">Todos</option>
+                            <option>Junior</option>
+                            <option>Mid</option>
+                            <option>Senior</option>
+                            <option>Lead</option>
+                        </select>
+                        <span class="chev" aria-hidden="true">▾</span>
+                    </label>
+                </div>
+            </form>
+        </section>
+
+        <section class="resultados-busqueda page-width">
+            <header>
+                <h2>Resultados de búsqueda</h2>
+            </header>
+            <section class="display-ofertas">
+                <article class="oferta">
+                    <div>                        
+                        <header class="header-oferta">
+                            <h3>Ingeniero de software</h3>
+                            <p>Tech Solutions Inc. | Remoto</p>
+                        </header>
+                        <p>Buscamos un ingeniero de software experto en desarrollo web y conocimientos en JavaScript, React y Node.js. El candidato ideal debe ser capaz de trabajar en equipo y tener habilidades de comunicación.</p>
+                    </div>
+                    <div>
+                        <a class="cta-button" href="">Aplicar</a>
+                    </div>
+                </article>
+                <article class="oferta">
+                    <div>                        
+                        <header class="header-oferta">
+                            <h3>Analista de Datos</h3>
+                            <p>Data Driven Co. | Ciudad de México</p>
+                        </header>
+                        <p>Estamos buscando un analista de datos con experiencia en el manejo de grandes conjuntos de datos y herramientas de visualización. Se requiere conocimiento en SQL, Python y R.</p>
+                    </div>
+                    <div>
+                        <a class="cta-button" href="">Aplicar</a>
+                    </div>
+                </article>
+                <article class="oferta">
+                    <div>                        
+                        <header class="header-oferta">
+                            <h3>Desarrollador de Aplicaciones Móviles</h3>
+                            <p>Mobile Apps Ltd. | Guadalajara</p>
+                        </header>
+                        <p>Buscamos un desarrollador de aplicaciones móviles con experiencia en iOS y/o Android. El candidato debe tener conocimientos en Swift, Kotlin y el desarrollo de interfaces de usuario.</p>
+                    </div>
+                    <div>
+                        <a class="cta-button" href="">Aplicar</a>
+                    </div>
+                </article>
+                <article class="oferta">
+                    <div>                        
+                        <header class="header-oferta">
+                            <h3>Ingeniero de DevOps</h3>
+                            <p>Cloud Services SA | Remoto</p>
+                        </header>
+                        <p>Estamos buscando un ingeniero de DevOps con experiencia en la gestión de infraestructuras en la nube, automatización de procesos y herramientas de integración continua. Se requiere conocimiento en AWS, Azure o GCP.</p>
+                    </div>
+                    <div>
+                        <a class="cta-button" href="">Aplicar</a>
+                    </div>
+                </article>
+            </section>
+            <footer class="nav-ofertas">
+                <a class="nav-page nav-prev" href=""><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-caret-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.883 5.007l.058 -.005h.118l.058 .005l.06 .009l.052 .01l.108 .032l.067 .027l.132 .07l.09 .065l.081 .073l.083 .094l.054 .077l.054 .096l.017 .036l.027 .067l.032 .108l.01 .053l.01 .06l.004 .057l.002 .059v12c0 .852 -.986 1.297 -1.623 .783l-.084 -.076l-6 -6a1 1 0 0 1 -.083 -1.32l.083 -.094l6 -6l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01z" /></svg></a>
+                <a class="nav-page current-page" href="">1</a>
+                <a class="nav-page" href="">2</a>
+                <a class="nav-page" href="">3</a>
+                <a class="nav-page" href="">4</a>
+                <a class="nav-page" href="">5</a>
+                <a class="nav-page nav-next" href=""><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-caret-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z" /></svg></a>
+            </footer>
+        </section>
+
+    </main>
+    <footer class="page-footer">
+        <small>&copy; 2025 DevJobs. Todos los derechos reservados.</small>
+    </footer>
+
+</body>
+
+</html>
