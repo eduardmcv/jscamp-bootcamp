@@ -1,0 +1,193 @@
+
+
+
+/* HEADER */
+
+.main-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--background);
+
+}
+
+nav {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+
+    a {
+        text-decoration: none;
+        color: var(--text-secondary);
+        transition: color 0.2s;
+        font-weight: 500;
+
+        &:hover,
+        &:focus {
+            color: var(--primary);
+            outline: none;
+        }
+    }
+}
+
+.main-header>div {
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.header-right {
+    display: flex;
+    gap: 1em;
+}
+
+.profile {
+    width: 2.375rem;
+    height: 2.375rem;
+    background-image: url(/profile.jpg);
+    background-size: contain;
+    border-radius: 3.125rem;
+    border: 3px solid var(--primary);
+}
+
+/* HERO */
+
+.hero-section {
+    text-align: center;
+}
+
+.busqueda {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.barra-de-busqueda{
+    width: 100%;
+    text-align: left;
+    background-color: rgb(30 41 59);
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+
+.barra-de-busqueda input[type="text"] {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    padding: 0.75rem 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.busqueda>div>svg {
+    margin: 0 .5rem;
+}
+
+.busqueda div:nth-child(2){
+    display: flex;
+}
+
+/* Pills (select nativo invisible + capa visual) */
+.filters{ display:flex; flex-wrap:wrap; gap:.75rem; }
+
+.pill{
+  position:relative; display:inline-flex; align-items:center; gap:.5rem;
+  background-color: rgb(30 41 59);
+  border-radius:1rem; padding:.625rem .875rem; cursor:pointer;
+  color:var(--text);
+}
+.pill-text{ pointer-events:none; opacity:.95; }
+.pill .chev{ pointer-events:none; margin-left:.125rem; color:var(--muted); }
+
+/* ocultamos el select pero sigue siendo accesible y enfocable */
+.pill select{
+  position:absolute; inset:0; opacity:0; appearance:none; cursor:pointer;
+}
+
+/* estado focus visible (cuando el select recibe foco) */
+.pill select:focus-visible + .chev,
+.pill select:focus-visible ~ .chev,
+.pill select:focus-visible{
+  outline: none;
+}
+.pill:has(select:focus-visible){
+  box-shadow:0 0 0 .1875rem color-mix(in oklab, var(--focus) 50%, transparent);
+  border-color:var(--focus);
+}
+
+/* Hover */
+.pill:hover{ background:#0e1627; }
+
+
+/* Resultados de busqueda */
+
+.resultados-busqueda {
+    h2 { text-align: start;}
+}
+
+.display-ofertas {
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+}
+
+.oferta{
+    padding: 2rem;
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+}
+
+.header-oferta {
+    h3{
+        font-size: 1.5rem;
+    }
+    p {
+        color: var(--text-muted);
+        margin: .25rem 0 .625rem;
+    }
+}
+
+.display-ofertas :last-child{
+    border-bottom: 0px solid;
+}
+
+.cta-button {
+    &.is-applied{
+        background-color: green;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+.nav-ofertas {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 3rem 0;
+    a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+        width: 3rem;
+        height: 3rem;
+        border-radius: .5rem;
+        text-decoration: none;
+    }
+    .current-page{
+        background-color: var(--cta-button);
+    }
+
+    .nav-page {
+        transition: background-color .2s;
+    }
+
+    .nav-page:hover {
+        background-color: var(--border);
+    }
+}
+
