@@ -191,3 +191,30 @@ nav {
     }
 }
 
+
+
+select{
+    padding: 0.625rem 2.25rem 0.625rem 0.75rem; 
+    background-color: #242d3a;
+    border: 0px;
+    border-radius: .5rem;
+    font-size: 0.875rem;
+    color: #ddd;
+    cursor:pointer;
+    transition: all 0.2s;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6 -6"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.25rem;
+
+    &:hover {
+        background-color: var(--primary-hover);
+        color: white;
+    }
+
+    &:focus {
+        outline: 2px solid var(--focus);
+        outline-offset: 2px;
+    }
+}
