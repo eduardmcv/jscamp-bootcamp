@@ -1,6 +1,3 @@
-
-
-
 /* HEADER */
 
 .main-header {
@@ -12,7 +9,8 @@
 nav {
     align-items: center;
     display: flex;
-    gap: 2rem;
+    gap: .5rem 2rem;
+    flex-wrap: wrap;
 
     a {
         text-decoration: none;
@@ -33,7 +31,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: .5rem 2rem;
+    flex-wrap: wrap;
 }
 
 .header-right {
@@ -62,7 +61,7 @@ nav {
     gap: 1rem;
 }
 
-.barra-de-busqueda{
+.barra-de-busqueda {
     width: 100%;
     text-align: left;
     background-color: rgb(30 41 59);
@@ -87,72 +86,102 @@ nav {
     margin: 0 .5rem;
 }
 
-.busqueda div:nth-child(2){
+.busqueda div:nth-child(2) {
     display: flex;
 }
 
 /* Pills (select nativo invisible + capa visual) */
-.filters{ display:flex; flex-wrap:wrap; gap:.75rem; }
-
-.pill{
-  position:relative; display:inline-flex; align-items:center; gap:.5rem;
-  background-color: rgb(30 41 59);
-  border-radius:1rem; padding:.625rem .875rem; cursor:pointer;
-  color:var(--text);
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
 }
-.pill-text{ pointer-events:none; opacity:.95; }
-.pill .chev{ pointer-events:none; margin-left:.125rem; color:var(--muted); }
+
+.pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background-color: rgb(30 41 59);
+    border-radius: 1rem;
+    padding: .625rem .875rem;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.pill-text {
+    pointer-events: none;
+    opacity: .95;
+}
+
+.pill .chev {
+    pointer-events: none;
+    margin-left: .125rem;
+    color: var(--muted);
+}
 
 /* ocultamos el select pero sigue siendo accesible y enfocable */
-.pill select{
-  position:absolute; inset:0; opacity:0; appearance:none; cursor:pointer;
+.pill select {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    appearance: none;
+    cursor: pointer;
 }
 
 /* estado focus visible (cuando el select recibe foco) */
-.pill select:focus-visible + .chev,
-.pill select:focus-visible ~ .chev,
-.pill select:focus-visible{
-  outline: none;
+.pill select:focus-visible+.chev,
+.pill select:focus-visible~.chev,
+.pill select:focus-visible {
+    outline: none;
 }
-.pill:has(select:focus-visible){
-  box-shadow:0 0 0 .1875rem color-mix(in oklab, var(--focus) 50%, transparent);
-  border-color:var(--focus);
+
+.pill:has(select:focus-visible) {
+    box-shadow: 0 0 0 .1875rem color-mix(in oklab, var(--focus) 50%, transparent);
+    border-color: var(--focus);
 }
 
 /* Hover */
-.pill:hover{ background:#0e1627; }
+.pill:hover {
+    background: #0e1627;
+}
 
 
 /* Resultados de busqueda */
 
 .resultados-busqueda {
-    h2 { text-align: start;}
+    h2 {
+        text-align: start;
+    }
 }
 
 .display-ofertas {
     border: 1px solid var(--border);
     border-radius: 1rem;
-}
+    list-style: none;
 
-.oferta{
-    padding: 2rem;
-    display: flex;
-    border-bottom: 1px solid var(--border);
-    gap: 1rem;
+
+    li>.oferta {
+        padding: 2rem;
+        display: flex;
+        border-bottom: 1px solid var(--border);
+        gap: 1rem;
+    }
+
+    li:last-child > .oferta {
+        border-bottom: 0px solid;
+    }
 }
 
 .header-oferta {
-    h3{
+    h3 {
         font-size: 1.5rem;
     }
+
     p {
         color: var(--text-muted);
         margin: .25rem 0 .625rem;
     }
-}
-
-.display-ofertas :last-child{
-    border-bottom: 0px solid;
 }
 
 
@@ -162,7 +191,8 @@ nav {
     justify-content: center;
     gap: 1rem;
     margin: 3rem 0;
-    a{
+
+    a {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -172,7 +202,8 @@ nav {
         border-radius: .5rem;
         text-decoration: none;
     }
-    .current-page{
+
+    .current-page {
         background-color: var(--cta-button);
     }
 
