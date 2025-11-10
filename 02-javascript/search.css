@@ -44,7 +44,6 @@ nav {
 .profile {
     width: 2.375rem;
     height: 2.375rem;
-    background-image: url(/profile.jpg);
     background-size: contain;
     border-radius: 3.125rem;
     border: 3px solid var(--primary);

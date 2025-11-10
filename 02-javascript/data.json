@@ -6,7 +6,7 @@
     "ubicacion": "Remoto",
     "descripcion": "Buscamos un ingeniero de software con experiencia en desarrollo web y conocimientos en JavaScript, React y Node.js. El candidato ideal debe ser capaz de trabajar en equipo y tener buenas habilidades de comunicación.",
     "data": {
-      "technology": ["react", "node", "javascript"],
+      "technology": ["react", "node", "javascript", "node.js"],
       "modalidad": "remoto",
       "nivel": "senior"
     }
@@ -102,7 +102,7 @@
     "ubicacion": "Valencia",
     "descripcion": "Buscamos un desarrollador frontend con experiencia en React, TypeScript y Tailwind CSS. Se valorará conocimiento en optimización de rendimiento y accesibilidad web.",
     "data": {
-      "technology": "react",
+    "technology": ["react", "node", "javascript"],
       "modalidad": "valencia",
       "nivel": "mid-level"
     }

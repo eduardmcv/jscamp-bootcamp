@@ -38,6 +38,10 @@
 
 /* #######MAIN######## */
 
+.is-hidden {
+    display: none;
+}
+
 .page-width {
     max-width: 1200px;
     margin: auto;
