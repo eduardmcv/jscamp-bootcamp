@@ -50,7 +50,7 @@ filters.addEventListener('change', function () {
   const jobs = document.querySelectorAll('.oferta');
 
   jobs.forEach(job => {
-    const jobTechs = (job.getAttribute('data-technology') || '')
+    const jobTechs = (job.getAttribute('data-technology') || '') 
       .split(',')
       .map(t => t.toLowerCase().trim())
       .filter(Boolean);
