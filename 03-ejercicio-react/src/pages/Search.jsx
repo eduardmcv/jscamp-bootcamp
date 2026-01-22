@@ -58,11 +58,11 @@ export function Search() {
     useEffect(() => {
         const jobCount = filteredJobs.length
 
-        if (textToFilter === '') {
-            document.title = `DevJobs - Página ${safeCurrentPage}`
-        } else {
-            document.title = `${jobCount} trabajos de "${textToFilter}" - Página ${safeCurrentPage}`
-        }
+        // evitamos if/else y queda mas limpio
+        document.title = textToFilter === ''
+            ? `DevJobs - Página ${safeCurrentPage}`
+            : `${jobCount} trabajos de "${textToFilter}" - Página ${safeCurrentPage}`
+
     }, [filteredJobs.length, safeCurrentPage, textToFilter])
 
     const handleFiltersChange = (newFilters) => {
