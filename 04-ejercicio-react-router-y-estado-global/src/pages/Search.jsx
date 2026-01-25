@@ -1,151 +1,159 @@
-import { useEffect, useState } from 'react'
-
-import { Pagination } from '../components/Pagination.jsx'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 import { SearchFormSection } from '../components/SearchFormSection.jsx'
-import { JobListings } from '../components/JobListings.jsx'
-import { useRouter } from '../hooks/useRouter.jsx'
+import { SearchResultsSection } from '../components/SearchResultsSection.jsx'
+import jobsData from '../data/data.json'
+import { useDebounce } from '../hooks/useDebounce.js'
 
-const RESULTS_PER_PAGE = 4
+const ITEMS_PER_PAGE = 5
 
-const useFilters = () => {
-  const [filters, setFilters] = useState(() => {
-    const params = new URLSearchParams(window.location.search)
-    return {
-      technology: params.get('technology') || '',
-      location: params.get('type') || '',
-      experienceLevel: params.get('level') || ''
-    }
-  })
-  const [textToFilter, setTextToFilter] = useState(() => {
-    const params = new URLSearchParams(window.location.search)
-    return params.get('text') || ''
-  })
-  const [currentPage, setCurrentPage] = useState(() => {
-    const params = new URLSearchParams(window.location.search)
-    const page = Number(params.get('page'))
-    return Number.isNaN(page) ? page : 1
-  })
+export function Search() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [jobs] = useState(jobsData)
 
-  const [jobs, setJobs] = useState([])
-  const [total, setTotal] = useState(0)
-  const [loading, setLoading] = useState(true)
+    // Inicialización desde URL con lazy initialization
+    const [textToFilter, setTextToFilter] = useState(() => {
+        return searchParams.get('text') ?? ''
+    })
 
-  const { navigateTo } = useRouter()
-
-  useEffect(() => {
-    async function fetchJobs() {
-      try {
-        setLoading(true)
-
-        const params = new URLSearchParams()
-        if (textToFilter) params.append('text', textToFilter)
-        if (filters.technology) params.append('technology', filters.technology)
-        if (filters.location) params.append('type', filters.location)
-        if (filters.experienceLevel) params.append('level', filters.experienceLevel)
-
-        const offset = (currentPage - 1) * RESULTS_PER_PAGE
-        params.append('limit', RESULTS_PER_PAGE)
-        params.append('offset', offset)
-
-        const queryParams = params.toString()
-      
-        const response = await fetch(`https://jscamp-api.vercel.app/api/jobs?${queryParams}`)
-        const json = await response.json()
-
-        setJobs(json.data)
-        setTotal(json.total)
-      } catch (error) {
-        console.error('Error fetching jobs:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchJobs()
-  }, [filters, currentPage, textToFilter])
-
-  useEffect(() => {
-    const params = new URLSearchParams()
-
-    if (textToFilter) params.append('text', textToFilter)
-    if (filters.technology) params.append('technology', filters.technology)
-    if (filters.location) params.append('type', filters.location)
-    if (filters.experienceLevel) params.append('level', filters.experienceLevel)
-
-    if (currentPage > 1) params.append('page', currentPage)
-
-    const newUrl = params.toString()
-      ? `${window.location.pathname}?${params.toString()}`
-      : window.location.pathname
-
-    navigateTo(newUrl)
-  }, [filters, currentPage, textToFilter, navigateTo])
-
-  const totalPages = Math.ceil(total / RESULTS_PER_PAGE)
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page)
-  }
-
-  const handleSearch = (filters) => {
-    setFilters(filters)
-    setCurrentPage(1)
-  }
-
-  const handleTextFilter = (newTextToFilter) => {
-    setTextToFilter(newTextToFilter)
-    setCurrentPage(1)
-  }
-
-  return {
-    loading,
-    jobs,
-    total,
-    totalPages,
-    currentPage,
-    textToFilter,
-    handlePageChange,
-    handleSearch,
-    handleTextFilter
-  }
-}
-
-export function SearchPage() {
-  const {
-    jobs,
-    total,
-    loading,
-    totalPages,
-    currentPage,
-    textToFilter,
-    handlePageChange,
-    handleSearch,
-    handleTextFilter
-  } = useFilters()
-
-  const title = loading
-    ? `Cargando... - DevJobs`
-    : `Resultados: ${total}, Página ${currentPage} - DevJobs`
-
-  return (
-    <main>
-      <title>{title}</title>
-      <meta name="description" content="Explora miles de oportunidades laborales en el sector tecnológico. Encuentra tu próximo empleo en DevJobs." />
-
-      <SearchFormSection
-        initialText={textToFilter}
-        onSearch={handleSearch}
-        onTextFilter={handleTextFilter}
-      />
-
-      <section>
-        <h2 style={{ textAlign: 'center' }}>Resultados de búsqueda</h2>
-
-        {
-          loading ? <p>Cargando empleos...</p> : <JobListings jobs={jobs} />
+    const [filters, setFilters] = useState(() => {
+        return {
+            technology: searchParams.get('technology') ?? '',
+            location: searchParams.get('location') ?? '',
+            experience: searchParams.get('experience') ?? ''
         }
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-      </section>
-    </main>
-  )
+    })
+
+    // Paginación también desde URL
+    const [currentPage, setCurrentPage] = useState(() => {
+        const pageFromUrl = searchParams.get('page')
+        const parsed = parseInt(pageFromUrl, 10)
+        return parsed > 0 ? parsed : 1
+    })
+
+    const debouncedSearch = useDebounce(textToFilter, 300)
+
+    const filteredJobs = jobs.filter((job) => {
+        const title = (job.title || '').toLowerCase()
+        const company = (job.company || '').toLowerCase()
+        const description = (job.description || '').toLowerCase()
+        const tags = Array.isArray(job.tags)
+            ? job.tags.map((t) => t.toLowerCase().trim())
+            : []
+
+        const searchTerm = debouncedSearch.toLowerCase().trim()
+        const selectedTech = filters.technology.toLowerCase().trim()
+        const selectedLoc = filters.location.toLowerCase().trim()
+        const selectedExp = filters.experience.toLowerCase().trim()
+
+        const matchesSearch =
+            !searchTerm ||
+            title.includes(searchTerm) ||
+            company.includes(searchTerm) ||
+            description.includes(searchTerm) ||
+            tags.some((tag) => tag.includes(searchTerm))
+
+        const jobTechs = tags
+        const jobLoc = (job.location || '').toLowerCase().trim()
+        const jobExp = (job.experience || '').toLowerCase().trim()
+
+        const techSelected = !selectedTech || jobTechs.includes(selectedTech)
+        const locSelected = !selectedLoc || selectedLoc === jobLoc
+        const expSelected = !selectedExp || selectedExp === jobExp
+
+        return matchesSearch && techSelected && locSelected && expSelected
+    })
+
+    const totalPages = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE)
+    const safeCurrentPage = totalPages === 0 ? 1 : Math.min(currentPage, totalPages)
+    const startIndex = (safeCurrentPage - 1) * ITEMS_PER_PAGE
+    const paginatedJobs = filteredJobs.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+
+    // Función para actualizar la URL con todos los parámetros
+    const updateURL = ({ text, technology, location, experience, page }) => {
+        setSearchParams((prevParams) => {
+            const params = new URLSearchParams(prevParams)
+
+            // Texto
+            if (text) params.set('text', text)
+            else params.delete('text')
+
+            // Filtros
+            if (technology) params.set('technology', technology)
+            else params.delete('technology')
+
+            if (location) params.set('location', location)
+            else params.delete('location')
+
+            if (experience) params.set('experience', experience)
+            else params.delete('experience')
+
+            // Paginación (solo si es mayor que 1)
+            if (page && page > 1) params.set('page', page.toString())
+            else params.delete('page')
+
+            return params
+        })
+    }
+
+    // Efecto para actualizar el título del documento
+    useEffect(() => {
+        const jobCount = filteredJobs.length
+
+        if (textToFilter === '') {
+            document.title = `DevJobs - Página ${safeCurrentPage}`
+        } else {
+            document.title = `${jobCount} trabajos de "${textToFilter}" - Página ${safeCurrentPage}`
+        }
+    }, [filteredJobs.length, safeCurrentPage, textToFilter])
+
+    const handleFiltersChange = (newFilters) => {
+        setFilters(newFilters)
+        setCurrentPage(1) // Reset a página 1 al cambiar filtros
+
+        updateURL({
+            text: textToFilter,
+            ...newFilters,
+            page: 1
+        })
+    }
+
+    const handleTextChange = (text) => {
+        setTextToFilter(text)
+        setCurrentPage(1) // Reset a página 1 al buscar
+
+        updateURL({
+            text,
+            ...filters,
+            page: 1
+        })
+    }
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page)
+
+        updateURL({
+            text: textToFilter,
+            ...filters,
+            page
+        })
+    }
+
+    return (
+        <main>
+            <SearchFormSection
+                onFiltersChange={handleFiltersChange}
+                onTextChange={handleTextChange}
+            />
+            <SearchResultsSection
+                jobs={paginatedJobs}
+                totalPages={totalPages}
+                currentPage={safeCurrentPage}
+                onPageChange={handlePageChange}
+            />
+        </main>
+    )
 }
+
+// Export default necesario para React.lazy()
+export default Search

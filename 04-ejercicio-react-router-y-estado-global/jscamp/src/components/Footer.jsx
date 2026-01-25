@@ -1,7 +1,8 @@
-export function Footer() {
+import React from "react";
+export default function Footer() {
     return (
         <>
-            <footer className="main-footer">
+            <footer>
                 <small>&copy; 2025 DevJobs. Todos los derechos reservados.</small>
             </footer>
         </>

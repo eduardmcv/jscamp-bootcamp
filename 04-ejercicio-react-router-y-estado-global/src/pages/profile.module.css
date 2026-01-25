@@ -1,0 +1,88 @@
+/* pages/profile.module.css */
+.container {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.avatar img {
+    border-radius: 50%;
+    border: 3px solid var(--primary-light);
+}
+
+.info h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.email {
+    color: var(--text-muted);
+}
+
+.section {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.section h2 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.empty {
+    color: var(--text-muted);
+}
+
+.link {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.count {
+    color: var(--text-secondary);
+}
+
+.count strong {
+    color: var(--primary-light);
+}
+
+.logoutButton {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.logoutButton:hover {
+    background: #b91c1c;
+}

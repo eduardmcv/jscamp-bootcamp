@@ -1,19 +1,45 @@
+import { lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router'
+
 import { Header } from './components/Header.jsx'
 import { Footer } from './components/Footer.jsx'
+import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 
-import { HomePage } from './pages/Home.jsx'
-import { SearchPage } from './pages/Search.jsx'
-import { Route } from './components/Route.jsx'
+// Lazy load de las páginas
+const Home = lazy(() => import('./pages/Home.jsx'))
+const Search = lazy(() => import('./pages/Search.jsx'))
+const JobDetail = lazy(() => import('./pages/Detail.jsx'))
+const NotFound = lazy(() => import('./pages/NotFound.jsx'))
+const Profile = lazy(() => import('./pages/Profile.jsx'))
 
-function App() {
+export default function App() {
   return (
     <>
       <Header />
-      <Route path="/" component={HomePage} />
-      <Route path="/search" component={SearchPage} />
+
+      <Suspense fallback={<p style={{ padding: '2rem', textAlign: 'center' }}>Cargando página...</p>}>
+        <Routes>
+          {/* Rutas públicas */}
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/jobs/:id" element={<JobDetail />} />
+          
+          {/* Rutas protegidas - requieren login */}
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+
       <Footer />
     </>
   )
 }
-
-export default App

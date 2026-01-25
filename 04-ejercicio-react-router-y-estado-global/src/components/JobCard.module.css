@@ -1,0 +1,145 @@
+/* JobCard.module.css */
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card {
+
+  border: 1px solid #0b2d50;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.cardLink:hover .card {
+  border-color: #0066cc;
+  box-shadow: 0 8px 16px rgba(0, 102, 204, 0.1);
+  transform: translateY(-2px);
+}
+
+.cardLink:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.badge {
+  background: #10b981;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.meta p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: #1e293b;
+  color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #0b2d50;
+}
+
+.salary {
+  font-weight: 600;
+  color: #1284f4;
+  font-size: 24px;
+}
+
+.viewMore {
+  color: #d1d1d1;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.cardLink:hover .viewMore {
+  color: #0066cc;
+}
+
+/* =============================================
+   ESTILOS PARA FavoriteButton
+   Añadir a index.css
+   ============================================= */
+
+/* Botón de favoritos en las tarjetas - posición en el footer (esquina inferior derecha) */
+.favorite-btn {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+    border-color: #ff6b6b;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+}
+
+.favorite-btn.is-favorite {
+    background: #fff5f5;
+    border-color: #ff6b6b;
+}
+
+.favorite-btn:focus-visible {
+    outline: 2px solid #ff6b6b;
+    outline-offset: 2px;
+}

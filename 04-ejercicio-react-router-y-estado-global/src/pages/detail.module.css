@@ -1,0 +1,229 @@
+/* pages/detail.module.css */
+.container {
+  padding-block: 2rem;
+  padding-inline: 1rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.loading {
+  padding-block: 5rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.notFound {
+  padding-block: 5rem;
+  text-align: center;
+}
+
+.notFound h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.notFound p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  color: var(--primary-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.breadcrumbList {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.5rem;
+}
+
+.breadcrumbLink {
+  color: var(--primary-light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumbLink:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.breadcrumbSeparator {
+  color: var(--text-muted);
+}
+
+.breadcrumbCurrent {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Header del trabajo */
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.meta {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.company {
+  font-weight: 600;
+}
+
+.location {
+  color: var(--text-muted);
+}
+
+.salary {
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  background: rgba(0, 153, 255, 0.15);
+  color: var(--primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+}
+
+/* Acciones */
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* Botón de aplicar */
+.applyButton {
+  background: var(--primary-light);
+  color: white;
+  border: none;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.applyButton:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.applyButton:disabled {
+  background: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Botón de favoritos */
+.favoriteButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.favoriteButton:hover {
+  border-color: var(--primary-light);
+  background: rgba(0, 153, 255, 0.1);
+}
+
+.favoriteButton.isFavorite {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.favoriteButton.isFavorite:hover {
+  background: rgba(255, 107, 107, 0.2);
+}
+
+/* Secciones de contenido */
+.section {
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.sectionContent {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Estilos para el contenido HTML (markdown renderizado) */
+.prose p {
+  margin-bottom: 1rem;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose strong {
+  color: var(--text-primary);
+}
+
+.prose a {
+  color: var(--primary-light);
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}

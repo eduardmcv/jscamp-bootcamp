@@ -1,32 +1,46 @@
-import { useState } from 'react'
+import { Link } from 'react-router'
+import styles from './JobCard.module.css'
+import { FavoriteButton } from './FavoriteButton.jsx'
 
 export function JobCard({ job }) {
-  const [isApplied, setIsApplied] = useState(false)
-
-  const handleApplyClick = () => {
-    setIsApplied(true)
-  }
-
-  const buttonClasses = isApplied ? 'button-apply-job is-applied' : 'button-apply-job'
-  const buttonText = isApplied ? 'Aplicado' : 'Aplicar'
-
   return (
-    <article
-      className="job-listing-card"
-      data-modalidad={job.data.modalidad}
-      data-nivel={job.data.nivel}
-      data-technology={job.data.technology}
-    >
-      <div>
-        <h3>{job.titulo}</h3>
-        <small>
-          {job.empresa} | {job.ubicacion}
-        </small>
-        <p>{job.descripcion}</p>
-      </div>
-      <button className={buttonClasses} onClick={handleApplyClick}>
-        {buttonText}
-      </button>
+    <article className={styles.card}>
+      <Link
+        to={`/jobs/${job.id}`}
+        className={styles.cardLink}
+        aria-label={`Ver detalles de ${job.title} en ${job.company}`}
+      >
+        <div className={styles.header}>
+          <h3 className={styles.title}>{job.title}</h3>
+          {job.isNew && <span className={styles.badge}>Nuevo</span>}
+        </div>
+
+        <div className={styles.meta}>
+          <p className={styles.company}>
+            <span className={styles.icon}>🏢</span>
+            {job.company}
+          </p>
+          <p className={styles.location}>
+            <span className={styles.icon}>📍</span>
+            {job.location}
+          </p>
+        </div>
+
+        {job.tags && job.tags.length > 0 && (
+          <div className={styles.tags}>
+            {job.tags.map((tag) => (
+              <span key={tag} className={styles.tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className={styles.footer}>
+          <span className={styles.salary}>{job.salary || 'Salario a convenir'}</span>
+          <FavoriteButton jobId={job.id} />
+        </div>
+      </Link>
     </article>
   )
 }
