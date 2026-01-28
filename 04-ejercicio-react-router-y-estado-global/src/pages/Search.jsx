@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router'
 import { SearchFormSection } from '../components/SearchFormSection.jsx'
 import { SearchResultsSection } from '../components/SearchResultsSection.jsx'
@@ -33,7 +33,9 @@ export function Search() {
 
     const debouncedSearch = useDebounce(textToFilter, 300)
 
-    const filteredJobs = jobs.filter((job) => {
+    /* Si bien no hay un problema real de rendimiento, está bueno englobar el filtro en useMemo para evitar re-renderizados innecesarios */
+    const filteredJobs = useMemo(() => {
+        return jobs.filter((job) => {
         const title = (job.title || '').toLowerCase()
         const company = (job.company || '').toLowerCase()
         const description = (job.description || '').toLowerCase()
@@ -63,6 +65,7 @@ export function Search() {
 
         return matchesSearch && techSelected && locSelected && expSelected
     })
+    }, [jobs, debouncedSearch, filters])
 
     const totalPages = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE)
     const safeCurrentPage = totalPages === 0 ? 1 : Math.min(currentPage, totalPages)
@@ -71,26 +74,26 @@ export function Search() {
 
     // Función para actualizar la URL con todos los parámetros
     const updateURL = ({ text, technology, location, experience, page }) => {
-        setSearchParams((prevParams) => {
-            const params = new URLSearchParams(prevParams)
+        setSearchParams((params) => {
+            // El valor que viene como propiedad en `setSearchParams` ya es un objeto `URLSearchParams`, por lo que no es necesario crear uno nuevo
+            // const params = new URLSearchParams(prevParams)
+
+            // solo para mostrar una manera diferente de hacer esto, evitando tantos if/else. (Antes también estaba bien)
+            const setIfExists = (key, value) => {
+                if (value) params.set(key, value)
+                else params.delete(key)
+            }
 
             // Texto
-            if (text) params.set('text', text)
-            else params.delete('text')
+            setIfExists('text', text)
 
             // Filtros
-            if (technology) params.set('technology', technology)
-            else params.delete('technology')
-
-            if (location) params.set('location', location)
-            else params.delete('location')
-
-            if (experience) params.set('experience', experience)
-            else params.delete('experience')
+            setIfExists('technology', technology)
+            setIfExists('location', location)
+            setIfExists('experience', experience)
 
             // Paginación (solo si es mayor que 1)
-            if (page && page > 1) params.set('page', page.toString())
-            else params.delete('page')
+            setIfExists('page', page > 1 ? page.toString() : null)
 
             return params
         })
