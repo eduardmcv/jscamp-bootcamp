@@ -12,7 +12,8 @@ export function FavoriteButton({ jobId }) {
 
     const handleClick = (event) => {
         event.preventDefault()
-        event.stopPropagation()
+        /* No hace falta stopPropagation() */
+        // event.stopPropagation()
         
         if (!isLoggedIn) return
         
