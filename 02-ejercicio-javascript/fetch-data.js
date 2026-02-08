@@ -5,6 +5,11 @@ fetch("./data.json")
         return response.json()
     })
     .then((jobs) => {
+        /* 
+        Usamos document.createDocumentFragment() para mejorar el rendimiento al agregar elementos al DOM. Lo que hace esto es crear un contenedor "virtual" donde se agregan todos los elementos que queremos mostrar, y cuando todos los elementos estén listos, los agregamos al DOM en una sola operación. Esto mejora el rendimiento ya que evita hacer múltiples operaciones de renderizado en el DOM.
+        */
+        const jobsDocumentFragment = document.createDocumentFragment();
+
         jobs.forEach(job => {
             const article = document.createElement('article');
             article.className = 'oferta';
@@ -26,6 +31,8 @@ fetch("./data.json")
                 </div>
             `;
 
-            displayOfertas.appendChild(article);
+            jobsDocumentFragment.appendChild(article);
         });
+
+        displayOfertas.appendChild(jobsDocumentFragment);
     })
