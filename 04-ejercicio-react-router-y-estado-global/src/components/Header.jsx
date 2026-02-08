@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router'
+import { NavLink } from 'react-router'
 import { Link as CustomLink } from './Link.jsx'
 import { useAuthStore } from '../store/authStore.js'
 import { useFavoritesStore } from '../store/favoritesStore.js'
@@ -10,7 +10,11 @@ function UserButton() {
 
     return (
         <>
-            {isLoggedIn ? (
+            {/* Podemos simplificarlo en un solo botón */}
+            <button onClick={isLoggedIn ? logout : login} className="auth-button">
+                {isLoggedIn ? 'Cerrar sesión' : 'Iniciar sesión'}
+            </button>
+            {/* {isLoggedIn ? (
                 <button onClick={logout} className="auth-button">
                     Cerrar sesión
                 </button>
@@ -18,18 +22,18 @@ function UserButton() {
                 <button onClick={login} className="auth-button">
                     Iniciar sesión
                 </button>
-            )}
+            )} */}
 
             {/* Avatar con link al perfil - solo si está logueado */}
             {isLoggedIn && (
-                <Link to="/profile" aria-label="Ir a mi perfil" title="Mi perfil">
+                <CustomLink href="/profile" aria-label="Ir a mi perfil" title="Mi perfil">
                     <img
                         src="https://unavatar.io/github/mdo"
                         alt="Avatar del usuario"
                         width="32"
                         height="32"
                     />
-                </Link>
+                </CustomLink>
             )}
         </>
     )

@@ -21,9 +21,7 @@ export function useSearchForm({ onFiltersChange, onTextChange, idTechnology, idL
 
     // Actualizar los parámetros en la URL
     const updateFiltersInURL = ({ text, technology, location, experience }) => {
-        setSearchParams((prevParams) => {
-            const params = new URLSearchParams(prevParams)
-
+        setSearchParams((params) => {
             // Usamos set (no append) para evitar duplicados
             if (text) params.set('text', text)
             else params.delete('text')

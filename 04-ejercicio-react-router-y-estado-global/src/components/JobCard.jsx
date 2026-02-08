@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import { Link } from '../components/Link.jsx'
 import styles from './JobCard.module.css'
 import { FavoriteButton } from './FavoriteButton.jsx'
 
@@ -6,7 +6,7 @@ export function JobCard({ job }) {
   return (
     <article className={styles.card}>
       <Link
-        to={`/jobs/${job.id}`}
+        href={`/jobs/${job.id}`}
         className={styles.cardLink}
         aria-label={`Ver detalles de ${job.title} en ${job.company}`}
       >
