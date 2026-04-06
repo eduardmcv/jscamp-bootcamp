@@ -1,0 +1,23 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (contraseñas, claves API...)
+.env
+.env.local
+.env.production
+
+# Carpetas de build/compilación
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Carpetas del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Carpetas de editores
+.vscode/
+.idea/

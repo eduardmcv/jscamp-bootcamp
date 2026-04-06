@@ -1,4 +1,7 @@
 {
   "type": "module",
-  "name": "05-ejercicio-cli-con-node"
+  "name": "05-ejercicio-cli-con-node",
+  "dependencies": {
+    "ms": "2.1.3"
+  }
 }
