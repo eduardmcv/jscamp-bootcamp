@@ -60,9 +60,25 @@ const server = createServer(async (req, res) => {
 
       const limit = searchParams.get("limit");
       const offset = searchParams.get("offset");
-      if (limit !== null && offset !== null) {
-        result = result.slice(Number(offset), Number(offset) + Number(limit));
+
+      // Podemos hacer verificaciones en el limit y el offset como
+      const isLimitInvalid = 
+        Number.isNaN(Number(limit)) || Number(limit) <= 0;
+
+      const isOffsetInvalid = 
+        Number.isNaN(Number(offset)) || Number(offset) < 0;
+
+      // En caso de que que no sean válidos, devolvemos un error
+      if (isLimitInvalid || isOffsetInvalid) {
+        sendJson(res, 400, { error: "Invalid limit or offset" });
+        return;
       }
+
+      // Si el usuario pasa un número decimal, lo redondeamos hacia abajo
+      const formattedOffset = Math.floor(Number(offset)) || 0;
+      const formattedLimit = Math.floor(Number(limit)) || result.length;
+
+      result = result.slice(formattedOffset, formattedOffset + formattedLimit);
 
       sendJson(res, 200, result);
       return;
