@@ -1,8 +1,9 @@
+import { DEFAULTS } from "../config";
 import data from "../jobs.json" with { type: "json" };
 import { v4 as uuidv4 } from "uuid";
 
 export class JobModel {
-  static getAll({ title, text, technology, limit = 10, offset = 0 }) {
+  static getAll({ title, text, technology, limit = DEFAULTS.LIMIT_PAGINATION, offset = DEFAULTS.LIMIT_OFFSET }) {
     let jobs = data;
 
     if (title)
