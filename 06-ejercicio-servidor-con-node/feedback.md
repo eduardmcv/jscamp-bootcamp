@@ -1,1 +1,2 @@
 <!-- Aquí irá el feedback de la corrección del ejercicio -->
+Excelente! Agregamos validaciones para el offset y el limit, redondeando los valores decimales hacia abajo con Math.floor y verificando que sean números válidos, por el resto, muy buen trabajo! Un código limpio y bien estructurado.
