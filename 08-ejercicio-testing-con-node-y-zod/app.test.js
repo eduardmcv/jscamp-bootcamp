@@ -51,8 +51,10 @@ describe("GET /jobs", () => {
   });
 
   it("debe filtrar trabajos por tecnología", async () => {
-    const { json } = await request("GET", "/jobs?technology=react");
-    assert.ok(json.data.every((job) => job.data.technology.includes("react")));
+    // Si usamos una constante, lo mejor es dejarlo en una variable para mayor control
+    const technology = "react";
+    const { json } = await request("GET", `/jobs?technology=${technology}`);
+    assert.ok(json.data.every((job) => job.data.technology.includes(technology)));
   });
 
   it("debe respetar el límite de resultados", async () => {
@@ -64,6 +66,11 @@ describe("GET /jobs", () => {
   it("debe aplicar offset correctamente", async () => {
     const { json } = await request("GET", "/jobs?offset=1");
     assert.strictEqual(json.data[0].id, "d35b2c89-5d60-4f26-b19a-6cfb2f1a0f57");
+
+    // Una cosa que podemos hacer es no depender de un ID escrito a mano, sino de un ID real
+    const { json: allJobs } = await request("GET", "/jobs");
+    const firstJobId = allJobs.data[1].id;
+    assert.strictEqual(json.data[0].id, firstJobId);
   });
 });
 
@@ -194,6 +201,11 @@ describe("PATCH /jobs/:id", () => {
 describe("DELETE /jobs/:id", () => {
   it("debe eliminar el job y devolver 204", async () => {
     const id = "f62d8a34-923a-4ac2-9b0b-14e0ac2f5405";
+
+    // Primero verificamos que antes exsitía
+    const { status: statusGetBefore } = await request("GET", `/jobs/${id}`);
+    assert.strictEqual(statusGetBefore, 200);
+
     const { status } = await request("DELETE", `/jobs/${id}`);
     assert.strictEqual(status, 204);
 
