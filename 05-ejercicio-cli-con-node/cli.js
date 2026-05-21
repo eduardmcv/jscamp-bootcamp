@@ -21,15 +21,18 @@ const hasAsc = args.includes("--asc");
 const hasDesc = args.includes("--desc");
 const hasFiles = args.includes("--files");
 const hasFolders = args.includes("--folders");
-const hasPermission = args.includes("--permission");
+// Verificamos el permiso de lectura del sistema por este medio
+const hasPermission = process.permission.has("fs.read");
+// const hasPermission = args.includes("--permission");
 
 // Verificar permisos
+// Solo con --permission no alcanza, hay que habilitar el directorio al cual queremos acceder
 if (!hasPermission) {
   console.error(
     "❌ Error: Debes habilitar los permisos necesarios para leer el directorio.",
   );
-  console.error("💡 Usa el flag --permission para habilitar los permisos.");
-  console.error("Ejemplo: node cli.js --permission");
+  console.error("💡 Usa el flag --permission --allow-fs-read para habilitar los permisos.");
+  console.error("Ejemplo: node --permission --allow-fs-read=./ cli.js ./");
   process.exit(1);
 }
 
