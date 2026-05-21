@@ -4,11 +4,10 @@ import { FavoriteButton } from './FavoriteButton.jsx'
 
 export function JobCard({ job }) {
   return (
-    <article className={styles.card}>
+    <article className={styles.card} aria-label={`${job.title} en ${job.company}`}>
       <Link
         href={`/jobs/${job.id}`}
         className={styles.cardLink}
-        aria-label={`Ver detalles de ${job.title} en ${job.company}`}
       >
         <div className={styles.header}>
           <h3 className={styles.title}>{job.title}</h3>
