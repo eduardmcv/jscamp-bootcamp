@@ -52,7 +52,7 @@ test("flujo completo: buscar, ver detalle, login y aplicar", async ({
 
   // 3. Verificar que se muestra el detalle del empleo
   // Podemos usar `heading` para obtener el elemento:
-  await expect(page.getByRole("heading", { level: 1 })).toBeVisible(); // <- level 1 es por ser un h1
+  await expect(page.getByRole("heading", { level: 1 }).last()).toBeVisible(); // <- level 1 es por ser un h1
   // await expect(page.locator("h1").last()).toBeVisible();
 
   // 4. Hacer clic en "Iniciar sesión"
