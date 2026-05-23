@@ -1,9 +1,9 @@
+import type { Job } from "./objects.ts";
 import type {
-  Job,
   ExperienceLevel,
   Technology,
   ApplicationStatus,
-} from "./objects.ts";
+} from "./types.ts";
 import {
   filterByExperience,
   filterByMinSalary,
