@@ -5,6 +5,10 @@ import assert from "node:assert";
 test("la página principal carga y muestra un buscador", async ({ page }) => {
   await page.goto("http://localhost:5173/search");
 
+  // En vez de buscar por placeholder, podemos agregar un `aria-label` al input y buscar por:
+  // page.getByLabel("Buscar trabajos, empresas o habilidades")
+  // O también por getByRole
+  // page.getByRole("searchbox", { name: "Buscar trabajos, empresas o habilidades" })
   const buscador = page.getByPlaceholder(
     "Buscar trabajos, empresas o habilidades",
   );
@@ -17,6 +21,8 @@ test("el usuario puede buscar empleos por tecnología", async ({ page }) => {
   await page.waitForSelector(".jobs-search");
 
   const buscador = page.getByRole("searchbox");
+  // Una buena practica es usar regex, para no tener problemas de mayúsculas ni minúsculas
+  // await buscador.fill(/React/i);
   await buscador.fill("React");
 
   const resultados = page.locator(".jobs-grid > *");
@@ -27,17 +33,27 @@ test("flujo completo: buscar, ver detalle, login y aplicar", async ({
   page,
 }) => {
   await page.goto("http://localhost:5173/search");
-  await page.waitForSelector(".jobs-search");
+  // No hace falta esperar por el selector
+  // await page.waitForSelector(".jobs-search");
 
   // 1. Buscar empleos con "JavaScript"
+  // Podemos replicar la obsrvación del test anterior
   const buscador = page.getByRole("searchbox");
   await buscador.fill("JavaScript");
 
   // 2. Hacer clic en el primer resultado
-  await page.locator(".jobs-grid > *").first().click();
+  // Podemos buscar por `getByRole` el article y luego encontrar el link desde ahí para darle click.
+  const firstJob = page.getByRole("article").filter({
+    hasText: /JavaScript/i,
+  }).first();
+
+  await firstJob.getByRole("link").first().click();
+  // await page.locator(".jobs-grid > *").first().click();
 
   // 3. Verificar que se muestra el detalle del empleo
-  await expect(page.locator("h1").last()).toBeVisible();
+  // Podemos usar `heading` para obtener el elemento:
+  await expect(page.getByRole("heading", { level: 1 }).last()).toBeVisible(); // <- level 1 es por ser un h1
+  // await expect(page.locator("h1").last()).toBeVisible();
 
   // 4. Hacer clic en "Iniciar sesión"
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
@@ -55,10 +71,14 @@ test("filtrar por ubicación muestra solo trabajos remotos", async ({
   await page.goto("http://localhost:5173/search");
   await page.waitForSelector(".jobs-search");
 
+  // Podemos agregar un aria-label en los select para identificarlos mejor
+  // await page.getByRole("combobox", { name: "Ubicación" }).selectOption("remoto");
   await page.getByRole("combobox").nth(1).selectOption("remoto");
 
+  // No hace falta un timeout
   await page.waitForTimeout(400);
 
+  // Podemos obtener el resultado como lo hicimos en el test anterior, así no usamos selectores de clases
   const cards = page.locator(".jobs-grid > *");
   await expect(cards.first()).toBeVisible();
 
@@ -74,6 +94,7 @@ test("filtrar por nivel senior no muestra resultados si no hay datos de nivel", 
   await page.goto("http://localhost:5173/search");
   await page.waitForSelector(".jobs-search");
 
+  // En este test podemos aplicar lo mismo que el anterior
   await page.getByRole("combobox").nth(2).selectOption("senior");
 
   await page.waitForTimeout(400);
