@@ -1,4 +1,6 @@
-import type { Job, ExperienceLevel, Technology, WorkMode } from "./objects.ts";
+import type { Job } from "./objects.ts";
+import type { ExperienceLevel, Technology, WorkMode } from "./types.ts";
+
 import {
   searchJobs,
   filterByExperience,

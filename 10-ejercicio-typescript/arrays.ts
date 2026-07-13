@@ -1,5 +1,6 @@
 import type { Job, Company, Candidate } from "./objects.ts";
 
+// Habían tecnologías que no cumplían el contrato de Job
 export const jobs: Job[] = [
   {
     id: "1",
@@ -8,7 +9,7 @@ export const jobs: Job[] = [
     location: "Madrid",
     description: "Buscamos desarrollador frontend con experiencia en React",
     salary: 45000,
-    technologies: ["react", "typescript", "tailwind"],
+    technologies: ["react", "typescript"],
     experienceLevel: "mid",
     workMode: "hibrido",
     isActive: true,
@@ -74,7 +75,7 @@ export const candidates: Candidate[] = [
     id: "1",
     name: "Ana García",
     email: "ana@example.com",
-    skills: ["react", "javascript", "css"],
+    skills: ["react", "javascript"],
     experienceYears: 3,
   },
   {
@@ -89,7 +90,7 @@ export const candidates: Candidate[] = [
     id: "3",
     name: "María López",
     email: "maria@example.com",
-    skills: ["react", "typescript", "tailwind", "node"],
+    skills: ["react", "typescript", "node"],
     experienceYears: 4,
   },
 ];
