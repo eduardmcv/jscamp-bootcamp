@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch app.ts",
+    "seed": "tsx db/seed.ts",
     "start": "tsx app.ts",
     "build": "tsc",
     "start:prod": "node dist/app.js",
