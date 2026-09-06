@@ -1,0 +1,108 @@
+name: 05 - CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  frontend-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Lint del frontend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm lint:frontend
+
+  frontend-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Tests del frontend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm test:frontend
+
+  backend-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Lint del backend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm lint:backend
+
+  backend-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Tests del backend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm test:backend
+
+  frontend-build:
+    runs-on: ubuntu-24.04
+    needs: [frontend-lint, frontend-test]
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Build del frontend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm build:frontend
+
+  backend-build:
+    runs-on: ubuntu-24.04
+    needs: [backend-lint, backend-test]
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Build del backend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm build:backend
+
+  frontend-test-matrix:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-latest, windows-latest]
+        node: ["22", "24"]
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v6
+
+      - name: Preparar Node.js y pnpm
+        uses: ./.github/actions/setup-pnpm-ci-cd
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Tests del frontend
+        working-directory: 12-ejercicio-cicd
+        run: pnpm test:frontend

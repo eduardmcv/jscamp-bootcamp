@@ -1,0 +1,32 @@
+name: 04 - Events
+
+on:
+  issues:
+    types: [opened, assigned]
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+
+jobs:
+  inspect-event:
+    runs-on: ubuntu-24.04
+    permissions:
+      issues: write
+    steps:
+      - name: Mostrar información del evento
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          echo "Event: $EVENT_NAME"
+          echo "Issue: $ISSUE_NUMBER"
+          echo "Comment: $COMMENT_BODY"
+
+      - name: Comentar en la issue
+        if: github.event_name == 'issues' && github.event.action == 'opened'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue comment "$ISSUE_NUMBER" --body "Gracias por abrir esta issue, la revisaremos lo antes posible."
