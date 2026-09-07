@@ -1,12 +1,12 @@
 import crypto from "node:crypto";
 import { db } from "../db/database";
 import type {
-  Job,
-  JobData,
-  JobContent,
   CreateJobDTO,
-  UpdateJobDTO,
+  Job,
+  JobContent,
+  JobData,
   JobFilters,
+  UpdateJobDTO,
 } from "../types";
 
 interface JobRow {
@@ -69,21 +69,25 @@ function mapJob(row: JobRow): Job {
   };
 }
 
-function saveTechnologies(jobId: string, technologies: string[]) {
-  const insert = db.prepare(
-    "INSERT INTO job_technologies (job_id, technology) VALUES (?, ?)",
-  );
+// Los `prepare` es mejor dejarlos fuera de cada llamada para que se ejecute una sola vez y luego se utilice donde se tenga que usar
+const insertTechnology = db.prepare(
+  "INSERT INTO job_technologies (job_id, technology) VALUES (?, ?)",
+);
+const deleteTechnologies = db.prepare("DELETE FROM job_technologies WHERE job_id = ?");
+const deleteContent = db.prepare("DELETE FROM job_content WHERE job_id = ?");
+const insertContent = db.prepare(
+  `INSERT INTO job_content (id, job_id, description, responsibilities, requirements, about)
+   VALUES (?, ?, ?, ?, ?, ?)`,
+);
 
-  db.prepare("DELETE FROM job_technologies WHERE job_id = ?").run(jobId);
-  technologies.forEach((technology) => insert.run(jobId, technology));
+function saveTechnologies(jobId: string, technologies: string[]) {
+  deleteTechnologies.run(jobId);
+  technologies.forEach((technology) => insertTechnology.run(jobId, technology));
 }
 
 function saveContent(jobId: string, content: JobContent) {
-  db.prepare("DELETE FROM job_content WHERE job_id = ?").run(jobId);
-  db.prepare(
-    `INSERT INTO job_content (id, job_id, description, responsibilities, requirements, about)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-  ).run(
+  deleteContent.run(jobId);
+  insertContent.run(
     crypto.randomUUID(),
     jobId,
     content.description,
